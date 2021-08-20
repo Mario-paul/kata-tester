@@ -67,6 +67,21 @@ describe("Tests", () => {
 
 *note the lower letter `test` class.*
 
+A poor-mans version of these tests I made early in development was the following code. It works fine, but lacks several of the features of kata-test. A feature of this function is that it works with Quokka free edition.
+
+```js
+function activate() {
+  test.assertEquals(incrementString("foobar000"), "foobar011");
+  test.assertEquals(incrementString("foo"), "foo1");
+  test.assertEquals(incrementString("foobar001"), "foobar002");
+  test.assertEquals(incrementString("foobar99"), "foobar100");
+  test.assertEquals(incrementString("foobar099"), "foobar100");
+  test.assertEquals(incrementString(""), "1");
+}
+
+activate();
+```
+
 ## Old vs ES6
 
 > When you have 'type: module' in the package.json file, your source code should use `import syntax`. When you do not have, you should use `require syntax`.
