@@ -1,7 +1,7 @@
 /***********************************************************************/
-const Test = require("../../kata-test/kata-test.js"); //
-const test = new Test(); //
-const { describe, it } = require("../../kata-test/describe-it.js"); //
+const Test = require("../../kata-test/kata-test.js");                  //
+const test = new Test();                                               //
+const { describe, it } = require("../../kata-test/describe-it.js");    //
 /***********************************************************************/
 /* Environment setup. Do not modify the above code.                    */
 
