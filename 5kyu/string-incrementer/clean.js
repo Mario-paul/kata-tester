@@ -1,4 +1,5 @@
 // Version to be submitted to Codewars
+
 function incrementString(string) {
   if (string === "") return "1";
 
