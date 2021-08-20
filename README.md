@@ -19,3 +19,7 @@ The code in this file is the final version that will be submitted to the kata on
 ### refactored.js (optional)
 
 A refactored version of the clean code, made to be as efficient as possible. One liners are ideal, though not necessary.
+
+## kata-test
+
+Is a unit testing library written in and for javascript / node.js Codewars katas. For more info and documentation check the [README.md](https://github.com/Mario-paul/codewars-katas/blob/main/kata-test/README.md) file for kata-test.
