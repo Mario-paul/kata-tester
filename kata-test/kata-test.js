@@ -1,5 +1,3 @@
-// import React from 'react'
-
 module.exports = class Test {
   assertEquals(input, expectedOutput) {
     if (input === expectedOutput) {
@@ -11,5 +9,3 @@ module.exports = class Test {
     }
   }
 };
-
-// export default Test
