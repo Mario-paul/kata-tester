@@ -82,6 +82,10 @@ function activate() {
 activate();
 ```
 
+## Colored output
+
+Currently, VSCode OUTPUT cannot be colored easily, if at all. To get colored output, you need to go to your VSCode settings, search Code Runner, and set "code-runner.runInTerminal" to true (or check mark).
+
 ## Old vs ES6
 
 > When you have 'type: module' in the package.json file, your source code should use `import syntax`. When you do not have, you should use `require syntax`.
