@@ -25,18 +25,10 @@ if (moduleAvailable("colors")) {
 }
 
 module.exports = class Test {
-  assertEquals(input, expectedOutput) {
-    if (input === expectedOutput) {
-      // return true
-      console.log("🗸 Test Passed");
-    } else {
-      // return false
-      console.log(`✗ expected ${input} to equal ${expectedOutput}`);
-    }
-  }
-
-  equal(input, expectedOutput) {
+  testLogic(input, expectedOutput) {
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
+    const spacerPassed = "--------------";
+    const spacerFailed = "---------------------------------------------";
     if (input === expectedOutput) {
       // return true
       if (colorsLoaded) {
@@ -44,6 +36,7 @@ module.exports = class Test {
       } else {
         console.log("🗸 Test Passed");
       }
+      console.log(spacerPassed);
     } else {
       // return false
       if (colorsLoaded) {
@@ -53,7 +46,16 @@ module.exports = class Test {
       } else {
         console.log(`✗ expected ${input} to equal ${expectedOutput}`);
       }
+      console.log(spacerFailed);
       // process.exit(1) // Codewars-like behavior, exit when a test fails
     }
+  }
+
+  assertEquals(input, expectedOutput) {
+    this.testLogic(input, expectedOutput);
+  }
+
+  equal(input, expectedOutput) {
+    this.testLogic(input, expectedOutput);
   }
 };
