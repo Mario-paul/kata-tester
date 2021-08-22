@@ -38,6 +38,7 @@ module.exports = class Test {
   equal(input, expectedOutput) {
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
     if (input === expectedOutput) {
+      // return true
       if (colorsLoaded) {
         console.log(colors.green("🗸 Test Passed"));
       } else {
