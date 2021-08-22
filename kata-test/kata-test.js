@@ -1,18 +1,26 @@
 function moduleAvailable(name) {
   try {
-    console.log(`Checking if module ${name} is installed...`);
+    console.log(`Checking if module '${name}' is installed...`);
+    // console.log(require.resolve(name)); // debug require.resolve()
     require.resolve(name);
     return true;
   } catch (e) {}
-  console.log(`Module ${name} is NOT available. Please run "npm install" inside ./kata-test directory to install.`);
+  console.log(
+    `Module '${name}' was NOT found. Please run "npm install" or "npm install colors" inside ./kata-test directory to install.`
+  );
+  console.log("");
   return false;
 }
 
+let colors;
 let colorsLoaded = false;
-if (moduleAvailable("colors/safe")) {
+
+if (moduleAvailable("colors")) {
   // yeah we've got it!
-  const colors = require("colors/safe");
-  console.log(`colors/safe is available!`);
+  colors = require("colors/safe");
+  // let colors = require("colors/safe")
+  console.log(`'colors' is installed!`);
+  console.log(``);
   colorsLoaded = true;
 }
 
@@ -28,9 +36,8 @@ module.exports = class Test {
   }
 
   equal(input, expectedOutput) {
-    console.log("colors loaded: ", colorsLoaded);
+    // console.log("colors loaded: ", colorsLoaded); //debug colors module
     if (input === expectedOutput) {
-      // console.log("🗸 Test Passed");
       if (colorsLoaded) {
         console.log(colors.green("🗸 Test Passed"));
       } else {
@@ -45,7 +52,7 @@ module.exports = class Test {
       } else {
         console.log(`✗ expected ${input} to equal ${expectedOutput}`);
       }
-      // process.exit(1) // Codewars-like behavior, exit when test fails
+      // process.exit(1) // Codewars-like behavior, exit when a test fails
     }
   }
 };
