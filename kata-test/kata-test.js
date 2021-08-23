@@ -1,12 +1,12 @@
 function moduleAvailable(name) {
   try {
-    console.log(`Checking if module '${name}' is installed...`);
+    // console.log(`Checking if module '${name}' is installed...`);
     // console.log(require.resolve(name)); // debug require.resolve()
     require.resolve(name);
     return true;
   } catch (e) {}
   console.log(
-    `Module '${name}' was NOT found. Please run "npm install" or "npm install colors" inside ./kata-test directory to install.`
+    `Checking if module '${name}' is installed... Module '${name}' was NOT found. Please run "npm install" inside ./kata-test directory to install.`
   );
   console.log("");
   return false;
@@ -19,7 +19,7 @@ if (moduleAvailable("colors")) {
   // yeah we've got it!
   colors = require("colors/safe");
   // let colors = require("colors/safe")
-  console.log(`'colors' is installed!`);
+  console.log(`Checking if module 'colors' is installed... 'colors' is installed!`);
   console.log(``);
   colorsLoaded = true;
 }
