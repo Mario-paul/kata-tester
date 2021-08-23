@@ -1,15 +1,18 @@
 function describe(string, func) {
-  console.group()
-  console.log(string)
+  console.log("Test Results:");
+  console.log("");
+
+  console.group();
+  console.log(string);
   func();
-  console.groupEnd()
+  console.groupEnd();
 }
 
 function it(string, func) {
-  console.group()
-  console.log(string)
-  func()
-  console.groupEnd()
+  console.group();
+  console.log(string);
+  func();
+  console.groupEnd();
 }
 
-module.exports = {describe, it}
+module.exports = { describe, it };
