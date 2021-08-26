@@ -1,0 +1,21 @@
+{
+  "name": "kata-test",
+  "version": "1.0.0",
+  "description": "Unit test library for codewars-katas",
+  "main": "kata-test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "colors": ">=1.4.0"
+  },
+  "keywords": [
+    "unit",
+    "test",
+    "codewars",
+    "kata",
+    "library"
+  ],
+  "author": "Mario Cardenas",
+  "license": "MIT"
+}
