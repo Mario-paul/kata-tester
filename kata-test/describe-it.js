@@ -1,6 +1,6 @@
 function describe(string, func) {
   console.log("Test Results:");
-  console.log("");
+  // console.log("");
 
   console.group();
   console.log(string);
@@ -11,6 +11,7 @@ function describe(string, func) {
 function it(string, func) {
   console.group();
   console.log(string);
+  console.log("--------------")
   func();
   console.groupEnd();
 }

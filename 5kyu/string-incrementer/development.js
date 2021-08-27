@@ -6,7 +6,7 @@ const { describe, it } = require("../../kata-test/describe-it.js"); //
 /* Environment setup. Do not modify the above code.                    */
 
 function incrementString(string) {
-  console.log("");
+  // console.log("");
   console.log("string:", string);
   if (string === "") return "1";
 
@@ -36,7 +36,7 @@ function incrementString(string) {
   }
 
   console.log("result:", result);
-  console.log("-------------------------------------------------");
+  console.log("--------------");
 
   return result;
 }

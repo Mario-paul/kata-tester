@@ -8,7 +8,7 @@ const { describe, it } = require("../../kata-test/describe-it.js");    //
 // Comment out your code on this file for future reference.
 
 function encode(string) {
-  return "h2ll4"
+  return "H4w 1r2 y45 t4d1y?"
 }
 
 function decode(string) {

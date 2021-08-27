@@ -19,8 +19,8 @@ if (moduleAvailable("colors")) {
   // yeah we've got it!
   colors = require("colors/safe");
   // let colors = require("colors/safe")
-  console.log(`Checking if module 'colors' is installed... 'colors' is installed!`);
-  console.log(``);
+  // console.log(`Checking if module 'colors' is installed... 'colors' is installed!`);
+  // console.log(``);
   colorsLoaded = true;
 }
 
