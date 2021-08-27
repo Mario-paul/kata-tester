@@ -41,10 +41,10 @@ module.exports = class KataTest {
       // return false
       if (colorsLoaded) {
         console.log(
-          colors.red(`✗ expected ${input} to equal ${expectedOutput}`)
+          colors.red(`✗ expected '${input}' to equal '${expectedOutput}'`)
         );
       } else {
-        console.log(`✗ expected ${input} to equal ${expectedOutput}`);
+        console.log(`✗ expected '${input}' to equal '${expectedOutput}'`);
       }
       console.log(spacerFailed);
       // process.exit(1) // Codewars-like behavior, exit when a test fails
