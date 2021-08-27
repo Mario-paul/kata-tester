@@ -1,9 +1,9 @@
 /***********************************************************************/
-const Test = require("../../kata-test/kata-test.js"); //
-const test = new Test(); //
-const { describe, it } = require("../../kata-test/describe-it.js"); //
+const KataTest = require("../../kata-test/kata-test.js");
+const Test = new KataTest();
+const { describe, it } = require("../../kata-test/describe-it.js");
 /***********************************************************************/
-/* Environment setup. Do not modify the above code.                    */
+/* Environment setup. Modify only as needed.                           */
 
 function incrementString(string) {
   // console.log("");
@@ -43,11 +43,11 @@ function incrementString(string) {
 
 describe("Tests", () => {
   it("test", () => {
-    test.assertEquals(incrementString("foobar000"), "foobar001");
-    test.assertEquals(incrementString("foo"), "foo1");
-    test.assertEquals(incrementString("foobar001"), "foobar002");
-    test.assertEquals(incrementString("foobar99"), "foobar100");
-    test.assertEquals(incrementString("foobar099"), "foobar100");
-    test.assertEquals(incrementString(""), "1");
+    Test.assertEquals(incrementString("foobar000"), "foobar001");
+    Test.assertEquals(incrementString("foo"), "foo1");
+    Test.assertEquals(incrementString("foobar001"), "foobar002");
+    Test.assertEquals(incrementString("foobar99"), "foobar100");
+    Test.assertEquals(incrementString("foobar099"), "foobar100");
+    Test.assertEquals(incrementString(""), "1");
   });
 });

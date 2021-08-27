@@ -10,7 +10,7 @@ function incrementString(string) {
 
   const matchLength = regMatch[0].length;
   let allNines = "9".repeat(matchLength);
-  
+
   if (regMatch[0] === allNines) {
     var result = num.replace(regex, (match) => {
       return ("0".repeat(matchLength) + ++match).substr(-matchLength - 1);

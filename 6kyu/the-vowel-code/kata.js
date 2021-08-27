@@ -1,9 +1,9 @@
 /***********************************************************************/
-const Test = require("../../kata-test/kata-test.js");                  //
-const assert = new Test();                                             //
-const { describe, it } = require("../../kata-test/describe-it.js");    //
+const KataTest = require("../../kata-test/kata-test.js");
+const assert = new KataTest();
+const { describe, it } = require("../../kata-test/describe-it.js");
 /***********************************************************************/
-/* Environment setup. Do not modify the above code.                    */
+/* Environment setup. Modify only as needed.                           */
 
 // Development file. Test your code here! Use Quokka Pro or Code Runner
 // to execute code live on this IDE.

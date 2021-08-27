@@ -24,7 +24,7 @@ if (moduleAvailable("colors")) {
   colorsLoaded = true;
 }
 
-module.exports = class Test {
+module.exports = class KataTest {
   testLogic(input, expectedOutput) {
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
     const spacerPassed = "--------------";

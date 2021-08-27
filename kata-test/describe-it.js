@@ -11,7 +11,7 @@ function describe(string, func) {
 function it(string, func) {
   console.group();
   console.log(string);
-  console.log("--------------")
+  console.log("--------------");
   func();
   console.groupEnd();
 }

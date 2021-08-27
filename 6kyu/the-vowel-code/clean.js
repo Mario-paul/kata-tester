@@ -2,5 +2,5 @@
 
 function kata() {
   // Your code here...
-  return
+  return;
 }
