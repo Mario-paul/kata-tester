@@ -6,7 +6,7 @@ function moduleAvailable(name) {
     return true;
   } catch (e) {}
   console.log(
-    `Checking if module '${name}' is installed... Module '${name}' was NOT found. Please run "npm install" inside ./kata-test directory to install.`
+    `Checking if module '${name}' is installed... Module '${name}' was NOT found. Please run "npm install" inside 'kata-test/' directory to install.`
   );
   console.log("");
   return false;
@@ -40,11 +40,21 @@ module.exports = class KataTest {
     } else {
       // return false
       if (colorsLoaded) {
-        console.log(
-          colors.red(`✗ expected '${input}' to equal '${expectedOutput}'`)
-        );
+        if (input === undefined || input === null) {
+          console.log(
+            colors.red(`✗ expected ${input} to equal '${expectedOutput}'`)
+          );
+        } else {
+          console.log(
+            colors.red(`✗ expected '${input}' to equal '${expectedOutput}'`)
+          );
+        }
       } else {
-        console.log(`✗ expected '${input}' to equal '${expectedOutput}'`);
+        if (input === undefined || input === null) {
+          console.log(`✗ expected ${input} to equal '${expectedOutput}'`);
+        } else {
+          console.log(`✗ expected '${input}' to equal '${expectedOutput}'`);
+        }
       }
       console.log(spacerFailed);
       // process.exit(1) // Codewars-like behavior, exit when a test fails
