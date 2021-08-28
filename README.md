@@ -1,6 +1,8 @@
 # Kata Tester _(kata-tester)_
 
-Kata Tester is a unit testing library for Codewars katas in Visual Studio Code. With it, users can test their code within the comfort of VSCode and test their output instantly, without the usual latency of Codewars tests within the browser environment. It can also be used as a repository to save your katas online for future reference, and for easy, local access.
+Unit testing library for Codewars katas in Visual Studio Code
+
+With this library users can run their code within the comfort of VSCode and test their output instantly, without the usual latency of Codewars tests within the browser environment. It doubles as a kata repository for future reference, and for easy, local access.
 
 Kata Tester is currently written in and for katas in javascript (node.js) language. Support for other languages is definitely a possibility, but community support is needed for that (or as the dev learns the languages :P).
 
@@ -25,6 +27,14 @@ The testing environment needs a few dependencies to work correctly:
    This will install the `colors` NPM module. If you do not want colored output, skip steps 2 and 3.
 
 4. By default, `Code Runner` outputs code in the 'OUTPUT' tab. If you installed 'colors' module on step 2, you need to tell Code Runner to use the 'TERMINAL' tab instead. For this, go to File => Preferences => Settings. Search for `code-runner.runInTerminal`, and activate the setting.
+
+### Updating
+
+In the root (kata-tester) directory, run
+
+```zsh
+git pull
+```
 
 ## Usage
 
