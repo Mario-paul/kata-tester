@@ -1,6 +1,6 @@
 # kata-template
 
-Copy this directory into the correct level kyu directory of your kata, and prep the file according to the main [README.md](https://github.com/Mario-paul/kata-tester/blob/main/README.md) file.
+Copy this directory into the correct level kyu directory of your kata, and prep the .js file(s) according to the main [README.md](https://github.com/Mario-paul/kata-tester/blob/main/README.md) file as well is this one.
 
 ## .js Files Explained
 
