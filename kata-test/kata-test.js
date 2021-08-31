@@ -25,7 +25,7 @@ if (moduleAvailable("colors")) {
 }
 
 module.exports = class KataTest {
-  testLogic(input, expectedOutput) {
+  testLogic(input, expectedOutput, info) {
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
     const spacerPassed = "--------------";
     const spacerFailed = "---------------------------------------------";
@@ -41,19 +41,47 @@ module.exports = class KataTest {
       // return false
       if (colorsLoaded) {
         if (input === undefined || input === null) {
-          console.log(
-            colors.red(`✗ expected ${input} to equal '${expectedOutput}'`)
-          );
+          if (info) {
+            console.log(
+              colors.red(
+                `✗ ${info}: expected ${input} to equal '${expectedOutput}'`
+              )
+            );
+          } else {
+            console.log(
+              colors.red(`✗ expected ${input} to equal '${expectedOutput}'`)
+            );
+          }
         } else {
-          console.log(
-            colors.red(`✗ expected '${input}' to equal '${expectedOutput}'`)
-          );
+          if (info) {
+            console.log(
+              colors.red(
+                `✗ ${info}: expected '${input}' to equal '${expectedOutput}'`
+              )
+            );
+          } else {
+            console.log(
+              colors.red(`✗ expected '${input}' to equal '${expectedOutput}'`)
+            );
+          }
         }
       } else {
         if (input === undefined || input === null) {
-          console.log(`✗ expected ${input} to equal '${expectedOutput}'`);
+          if (info) {
+            console.log(
+              `✗ ${info}: expected ${input} to equal '${expectedOutput}'`
+            );
+          } else {
+            console.log(`✗ expected ${input} to equal '${expectedOutput}'`);
+          }
         } else {
-          console.log(`✗ expected '${input}' to equal '${expectedOutput}'`);
+          if (info) {
+            console.log(
+              `✗ ${info}: expected '${input}' to equal '${expectedOutput}'`
+            );
+          } else {
+            console.log(`✗ expected '${input}' to equal '${expectedOutput}'`);
+          }
         }
       }
       console.log(spacerFailed);
@@ -61,11 +89,11 @@ module.exports = class KataTest {
     }
   }
 
-  assertEquals(input, expectedOutput) {
-    this.testLogic(input, expectedOutput);
+  assertEquals(input, expectedOutput, info) {
+    this.testLogic(input, expectedOutput, info);
   }
 
-  equal(input, expectedOutput) {
-    this.testLogic(input, expectedOutput);
+  equal(input, expectedOutput, info) {
+    this.testLogic(input, expectedOutput, info);
   }
 };
