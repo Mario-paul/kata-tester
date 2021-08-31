@@ -1,14 +1,14 @@
 # kata-template
 
-Copy this directory into the correct level kyu directory of your kata, and prep the file according to the main [README.md](https://github.com/Mario-paul/kata-tester/blob/main/README.md) file.
+Copy this directory into the correct level kyu directory of your kata, and prep the .js file(s) according to the main [README.md](https://github.com/Mario-paul/kata-tester/blob/main/README.md) file as well is this one.
 
 ## .js Files Explained
 
 - ### kata.js
 
-    This file is the working / testing environment for katas. It's where you play around with code to find a solution, just like the IDE on Codewars. It's generally full of console.logs() useful for debugging.
+    This file is the working / testing environment for katas. It's where you play around with code to find a solution, just like the IDE on Codewars. It's generally full of console.logs() useful for debugging. You can clean it and submit to Codewars, and delete the optional .js files.
 
-- ### clean.js
+- ### clean.js (optional)
 
     "Production" version of your code. Clean your code of console.logs(), comments, and make it as readable as possible. This will be the final version of the kata you will submit on Codewars. Does not need sample tests or environment settings, but it can if you want.
 

@@ -27,64 +27,45 @@ if (moduleAvailable("colors")) {
 module.exports = class KataTest {
   testLogic(input, expectedOutput, info) {
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
-    const spacerPassed = "--------------";
-    const spacerFailed = "---------------------------------------------";
+    const passedSpacer = "--------------";
+    const failedSpacer = "---------------------------------------------";
+    const testPassed = "🗸 Test Passed";
+
+    let myInput = `'${input}'`;
+    let myExpectedOutput = `'${expectedOutput}'`;
+    if (input === undefined || input === null || !isNaN(input)) {
+      myInput = input;
+    }
+    if (!isNaN(expectedOutput)) {
+      myExpectedOutput = `${expectedOutput}`;
+    }
+    let testFailed = `✗ expected ${myInput} to equal ${myExpectedOutput}`;
+    let testFailedInfo = `✗ ${info}: expected ${myInput} to equal ${myExpectedOutput}`;
+
     if (input === expectedOutput) {
       // return true
       if (colorsLoaded) {
-        console.log(colors.green("🗸 Test Passed"));
+        console.log(colors.green(testPassed));
       } else {
-        console.log("🗸 Test Passed");
+        console.log(testPassed);
       }
-      console.log(spacerPassed);
+      console.log(passedSpacer);
     } else {
       // return false
       if (colorsLoaded) {
-        if (input === undefined || input === null) {
-          if (info) {
-            console.log(
-              colors.red(
-                `✗ ${info}: expected ${input} to equal '${expectedOutput}'`
-              )
-            );
-          } else {
-            console.log(
-              colors.red(`✗ expected ${input} to equal '${expectedOutput}'`)
-            );
-          }
+        if (info) {
+          console.log(colors.red(testFailedInfo));
         } else {
-          if (info) {
-            console.log(
-              colors.red(
-                `✗ ${info}: expected '${input}' to equal '${expectedOutput}'`
-              )
-            );
-          } else {
-            console.log(
-              colors.red(`✗ expected '${input}' to equal '${expectedOutput}'`)
-            );
-          }
+          console.log(colors.red(testFailed));
         }
       } else {
-        if (input === undefined || input === null) {
-          if (info) {
-            console.log(
-              `✗ ${info}: expected ${input} to equal '${expectedOutput}'`
-            );
-          } else {
-            console.log(`✗ expected ${input} to equal '${expectedOutput}'`);
-          }
+        if (info) {
+          console.log(testFailedInfo);
         } else {
-          if (info) {
-            console.log(
-              `✗ ${info}: expected '${input}' to equal '${expectedOutput}'`
-            );
-          } else {
-            console.log(`✗ expected '${input}' to equal '${expectedOutput}'`);
-          }
+          console.log(testFailed);
         }
       }
-      console.log(spacerFailed);
+      console.log(failedSpacer);
       // process.exit(1) // Codewars-like behavior, exit when a test fails
     }
   }
