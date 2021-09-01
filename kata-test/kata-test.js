@@ -25,6 +25,7 @@ if (moduleAvailable("colors")) {
 }
 
 module.exports = class KataTest {
+  // Deep comparison between two values to determine if they are equivalent.
   deepEqual = (input, expectedOutput) => {
     if (input === expectedOutput) return true;
     if (input instanceof Date && expectedOutput instanceof Date)
@@ -40,26 +41,35 @@ module.exports = class KataTest {
     if (keys.length !== Object.keys(expectedOutput).length) return false;
     return keys.every((k) => this.deepEqual(input[k], expectedOutput[k]));
   };
+  
+  // If value is an array, return string formatted with brackets
+  checkForArray = (value) => {
+    let printValue;
+    if (Array.isArray(value)) {
+      printValue = "[[" + value.join("], [") + "]]";
+      return (`'${printValue}'`);
+    } else {
+      return (`'${value}'`);
+    }
+  };
 
   testLogic(input, expectedOutput, info) {
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
     const passedSpacer = "--------------";
     const failedSpacer = "---------------------------------------------";
-    const testPassed = "🗸 Test Passed";
 
-    let myInput = `'${input}'`;
-    let myExpectedOutput = `'${expectedOutput}'`;
-    // Probably delete the following two lines
-    // let myExpectedOutput = JSON.stringify(expectedOutput);
-    // myExpectedOutput = `'${myExpectedOutput}'`;
+    let printInput = this.checkForArray(input);
+    let printExpectedOutput = this.checkForArray(expectedOutput)
+
     if (input === undefined || input === null || !isNaN(input)) {
-      myInput = input;
+      printInput = input;
     }
     if (!isNaN(expectedOutput)) {
-      myExpectedOutput = `${expectedOutput}`;
+      printExpectedOutput = `${expectedOutput}`;
     }
-    let testFailed = `✗ expected ${myInput} to equal ${myExpectedOutput}`;
-    let testFailedInfo = `✗ ${info}: expected ${myInput} to equal ${myExpectedOutput}`;
+    const testPassed = "🗸 Test Passed";
+    let testFailed = `✗ expected ${printInput} to equal ${printExpectedOutput}`;
+    let testFailedInfo = `✗ ${info}: expected ${printInput} to equal ${printExpectedOutput}`;
 
     if (this.deepEqual(input, expectedOutput)) {
       // return true
@@ -98,25 +108,25 @@ module.exports = class KataTest {
   }
 
   assertSimilar(input, expectedOutput, info) {
+    // this.testLogic(input, expectedOutput, info);
+
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
     const passedSpacer = "--------------";
     const failedSpacer = "---------------------------------------------";
 
-    let myInput = "[[" + input.join("], [") + "]]";
-    myInput = `'${myInput}'`;
-    let myExpectedOutput = "[[" + expectedOutput.join("], [") + "]]";
-    myExpectedOutput = `'${myExpectedOutput}'`;
+    let printInput = this.checkForArray(input);
+    let printExpectedOutput = this.checkForArray(expectedOutput)
     // Check if input is undefined, null, or NaN, remove single quotes if true
     // if (input === undefined || input === null || !isNaN(input)) {
-    //   myInput = input;
+    //   printInput = input;
     // }
     // Check if expectedOutput is a number, remove single quotes if true
     // if (!isNaN(expectedOutput)) {
-    //   myExpectedOutput = `${expectedOutput}`;
+    //   printExpectedOutput = `${expectedOutput}`;
     // }
-    const testPassed = `🗸 Test Passed: Value == ${myExpectedOutput}`;
-    let testFailed = `✗ Expected: ${myExpectedOutput}, instead got: ${myInput}`;
-    let testFailedInfo = `✗ ${info} - Expected: ${myExpectedOutput}, instead got: ${myInput}`;
+    const testPassed = `🗸 Test Passed: Value == ${printExpectedOutput}`;
+    let testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+    let testFailedInfo = `✗ ${info} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
 
     // Comparing two identical arrays gives FALSE. Hence, deepEqual function
     // console.log(deepEqual(input, expectedOutput)) // Debug deepEqual
