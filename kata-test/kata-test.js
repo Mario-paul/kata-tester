@@ -33,6 +33,9 @@ module.exports = class KataTest {
 
     let myInput = `'${input}'`;
     let myExpectedOutput = `'${expectedOutput}'`;
+    // Probably delete the following two lines
+    // let myExpectedOutput = JSON.stringify(expectedOutput);
+    // myExpectedOutput = `'${myExpectedOutput}'`;
     if (input === undefined || input === null || !isNaN(input)) {
       myInput = input;
     }
@@ -76,5 +79,131 @@ module.exports = class KataTest {
 
   equal(input, expectedOutput, info) {
     this.testLogic(input, expectedOutput, info);
+  }
+
+  // This assertSimilar() converts array input and expected output into
+  // a string and compares them. Probably more unreliable than deepEqual.
+
+  // assertSimilar(input, expectedOutput, info) {
+  //   // console.log("colors loaded: ", colorsLoaded); //debug colors module
+  //   const passedSpacer = "--------------";
+  //   const failedSpacer = "---------------------------------------------";
+  //   let myInput = `'${input}'`;
+  //   let stringExpectedOutput = `'${expectedOutput}'`;
+  //   // let myExpectedOutput = JSON.stringify(expectedOutput);
+  //   let myExpectedOutput = "[[" + expectedOutput.join("], [") + "]]";
+  //   myExpectedOutput = `'${myExpectedOutput}'`;
+  //   // if (input === undefined || input === null || !isNaN(input)) {
+  //   //   myInput = input;
+  //   // }
+  //   // if (!isNaN(expectedOutput)) {
+  //   //   myExpectedOutput = `${expectedOutput}`;
+  //   // }
+  //   const testPassed = `🗸 Test Passed: Value == ${myExpectedOutput}`;
+  //   let testFailed = `✗ Expected: ${myExpectedOutput}, instead got: ${myInput}`;
+  //   let testFailedInfo = `✗ ${info} - Expected: ${myExpectedOutput}, instead got: ${myInput}`;
+
+  //   // Comparing two identical arrays gives FALSE! WTF?
+  //   // console.log(input)
+  //   // console.log(expectedOutput)
+
+  //   // if (input === expectedOutput) {
+  //     // Should say passed, identical arrays do not pass
+  //   //   console.log("PASSED")
+  //   // }
+
+  //   if (myInput === stringExpectedOutput) {
+  //     // return true
+  //     if (colorsLoaded) {
+  //       console.log(colors.green(testPassed));
+  //     } else {
+  //       console.log(testPassed);
+  //     }
+  //     console.log(passedSpacer);
+  //   } else {
+  //     // return false
+  //     if (colorsLoaded) {
+  //       if (info) {
+  //         console.log(colors.red(testFailedInfo));
+  //       } else {
+  //         console.log(colors.red(testFailed));
+  //       }
+  //     } else {
+  //       if (info) {
+  //         console.log(testFailedInfo);
+  //       } else {
+  //         console.log(testFailed);
+  //       }
+  //     }
+  //     console.log(failedSpacer);
+  //     // process.exit(1) // Codewars-like behavior, exit when a test fails
+  //   }
+  // }
+
+  assertSimilar(input, expectedOutput, info) {
+    // console.log("colors loaded: ", colorsLoaded); //debug colors module
+    const passedSpacer = "--------------";
+    const failedSpacer = "---------------------------------------------";
+
+    let myInput = "[[" + input.join("], [") + "]]";
+    myInput = `'${myInput}'`;
+    let myExpectedOutput = "[[" + expectedOutput.join("], [") + "]]";
+    myExpectedOutput = `'${myExpectedOutput}'`;
+    // Check if input is undefined, null, or NaN, remove single quotes if true
+    // if (input === undefined || input === null || !isNaN(input)) {
+    //   myInput = input;
+    // }
+    // Check if expectedOutput is a number, remove single quotes if true
+    // if (!isNaN(expectedOutput)) {
+    //   myExpectedOutput = `${expectedOutput}`;
+    // }
+    const testPassed = `🗸 Test Passed: Value == ${myExpectedOutput}`;
+    let testFailed = `✗ Expected: ${myExpectedOutput}, instead got: ${myInput}`;
+    let testFailedInfo = `✗ ${info} - Expected: ${myExpectedOutput}, instead got: ${myInput}`;
+
+    // Comparing two identical arrays gives FALSE. Hence, deepEqual function
+    let deepEqual = (input, expectedOutput) => {
+      if (input === expectedOutput) return true;
+      if (input instanceof Date && expectedOutput instanceof Date)
+        return input.getTime() === expectedOutput.getTime();
+      if (
+        !input ||
+        !expectedOutput ||
+        (typeof input !== "object" && typeof expectedOutput !== "object")
+      )
+        return input === expectedOutput;
+      if (input.prototype !== expectedOutput.prototype) return false;
+      let keys = Object.keys(input);
+      if (keys.length !== Object.keys(expectedOutput).length) return false;
+      return keys.every((k) => deepEqual(input[k], expectedOutput[k]));
+    };
+
+    // console.log(deepEqual(input, expectedOutput)) // Debug deepEqual
+    if (deepEqual(input, expectedOutput)) {
+      // return true
+      if (colorsLoaded) {
+        console.log(colors.green(testPassed));
+      } else {
+        console.log(testPassed);
+      }
+      console.log(passedSpacer);
+    } else {
+      // return false
+      if (colorsLoaded) {
+        if (info) {
+          console.log(colors.red(testFailedInfo));
+        } else {
+          console.log(colors.red(testFailed));
+        }
+      } else {
+        if (info) {
+          console.log(testFailedInfo);
+        } else {
+          console.log(testFailed);
+        }
+      }
+      console.log(failedSpacer);
+      // process.exit(1) // Codewars-like behavior, exit when a test fails
+    }
   }
 };
