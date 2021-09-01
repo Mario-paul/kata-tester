@@ -53,7 +53,7 @@ module.exports = class KataTest {
     }
   };
 
-  testLogic(
+  printTestResult(
     input,
     expectedOutput,
     info,
@@ -65,6 +65,8 @@ module.exports = class KataTest {
     const passedSpacer = "--------------";
     const failedSpacer = "---------------------------------------------";
 
+    // Comparing two identical arrays gives FALSE. Hence, deepEqual function
+    // console.log(this.deepEqual(input, expectedOutput)) // Debug deepEqual
     if (this.deepEqual(input, expectedOutput)) {
       // return true
       if (colorsLoaded) {
@@ -93,15 +95,10 @@ module.exports = class KataTest {
     }
   }
 
-  // Check if input is undefined, null, or NaN, remove single quotes if true
-  isFalsyType(value) {
+  // Remove single quotes if input is undefined, null, or if it's a number
+  removeSingleQuotes(value) {
     if (value === undefined || value === null || !isNaN(value)) {
       return value;
-    }
-  }
-  isANumber(value) {
-    if (!isNaN(value)) {
-      return `${value}`;
     }
   }
 
@@ -109,14 +106,14 @@ module.exports = class KataTest {
     let printInput = this.checkForArray(input);
     let printExpectedOutput = this.checkForArray(expectedOutput);
 
-    printInput = this.isFalsyType(input);
-    printExpectedOutput = this.isANumber(expectedOutput);
+    printInput = this.removeSingleQuotes(input);
+    printExpectedOutput = this.removeSingleQuotes(expectedOutput);
 
     const testPassed = "🗸 Test Passed";
     const testFailed = `✗ expected ${printInput} to equal ${printExpectedOutput}`;
     const testFailedInfo = `✗ ${info}: expected ${printInput} to equal ${printExpectedOutput}`;
 
-    this.testLogic(
+    this.printTestResult(
       input,
       expectedOutput,
       info,
@@ -142,9 +139,7 @@ module.exports = class KataTest {
     const testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
     const testFailedInfo = `✗ ${info} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
 
-    // Comparing two identical arrays gives FALSE. Hence, deepEqual function
-    // console.log(deepEqual(input, expectedOutput)) // Debug deepEqual
-    this.testLogic(
+    this.printTestResult(
       input,
       expectedOutput,
       info,
