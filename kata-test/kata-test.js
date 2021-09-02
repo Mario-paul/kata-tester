@@ -68,6 +68,7 @@ module.exports = class KataTest {
     // Comparing two identical arrays gives FALSE. Hence, deepEqual function
     // console.log(this.deepEqual(input, expectedOutput)) // Debug deepEqual
     if (this.deepEqual(input, expectedOutput)) {
+
       // return true
       if (colorsLoaded) {
         console.log(colors.green(testPassed));
