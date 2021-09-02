@@ -25,24 +25,50 @@ if (moduleAvailable("colors")) {
 }
 
 module.exports = class KataTest {
-  testLogic(input, expectedOutput, info) {
+  // Deep comparison between two values to determine if they are equivalent.
+  deepEqual = (input, expectedOutput) => {
+    if (input === expectedOutput) return true;
+    if (input instanceof Date && expectedOutput instanceof Date)
+      return input.getTime() === expectedOutput.getTime();
+    if (
+      !input ||
+      !expectedOutput ||
+      (typeof input !== "object" && typeof expectedOutput !== "object")
+    )
+      return input === expectedOutput;
+    if (input.prototype !== expectedOutput.prototype) return false;
+    let keys = Object.keys(input);
+    if (keys.length !== Object.keys(expectedOutput).length) return false;
+    return keys.every((k) => this.deepEqual(input[k], expectedOutput[k]));
+  };
+
+  // If value is an array, return string formatted with brackets
+  checkForArray = (value) => {
+    let printValue;
+    if (Array.isArray(value)) {
+      printValue = "[[" + value.join("], [") + "]]";
+      return `'${printValue}'`;
+    } else {
+      return `'${value}'`;
+    }
+  };
+
+  printTestResult(
+    input,
+    expectedOutput,
+    info,
+    testPassed,
+    testFailed,
+    testFailedInfo
+  ) {
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
     const passedSpacer = "--------------";
     const failedSpacer = "---------------------------------------------";
-    const testPassed = "🗸 Test Passed";
 
-    let myInput = `'${input}'`;
-    let myExpectedOutput = `'${expectedOutput}'`;
-    if (input === undefined || input === null || !isNaN(input)) {
-      myInput = input;
-    }
-    if (!isNaN(expectedOutput)) {
-      myExpectedOutput = `${expectedOutput}`;
-    }
-    let testFailed = `✗ expected ${myInput} to equal ${myExpectedOutput}`;
-    let testFailedInfo = `✗ ${info}: expected ${myInput} to equal ${myExpectedOutput}`;
+    // Comparing two identical arrays gives FALSE. Hence, deepEqual function
+    // console.log(this.deepEqual(input, expectedOutput)) // Debug deepEqual
+    if (this.deepEqual(input, expectedOutput)) {
 
-    if (input === expectedOutput) {
       // return true
       if (colorsLoaded) {
         console.log(colors.green(testPassed));
@@ -70,11 +96,57 @@ module.exports = class KataTest {
     }
   }
 
+  // Remove single quotes if input is undefined, null, or if it's a number
+  removeSingleQuotes(value) {
+    if (value === undefined || value === null || !isNaN(value)) {
+      return value;
+    }
+  }
+
+  defaultTest(input, expectedOutput, info) {
+    let printInput = this.checkForArray(input);
+    let printExpectedOutput = this.checkForArray(expectedOutput);
+
+    printInput = this.removeSingleQuotes(input);
+    printExpectedOutput = this.removeSingleQuotes(expectedOutput);
+
+    const testPassed = "🗸 Test Passed";
+    const testFailed = `✗ expected ${printInput} to equal ${printExpectedOutput}`;
+    const testFailedInfo = `✗ ${info}: expected ${printInput} to equal ${printExpectedOutput}`;
+
+    this.printTestResult(
+      input,
+      expectedOutput,
+      info,
+      testPassed,
+      testFailed,
+      testFailedInfo
+    );
+  }
+
   assertEquals(input, expectedOutput, info) {
-    this.testLogic(input, expectedOutput, info);
+    this.defaultTest(input, expectedOutput, info);
   }
 
   equal(input, expectedOutput, info) {
-    this.testLogic(input, expectedOutput, info);
+    this.defaultTest(input, expectedOutput, info);
+  }
+
+  assertSimilar(input, expectedOutput, info) {
+    let printInput = this.checkForArray(input);
+    let printExpectedOutput = this.checkForArray(expectedOutput);
+
+    const testPassed = `🗸 Test Passed: Value == ${printExpectedOutput}`;
+    const testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+    const testFailedInfo = `✗ ${info} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+
+    this.printTestResult(
+      input,
+      expectedOutput,
+      info,
+      testPassed,
+      testFailed,
+      testFailedInfo
+    );
   }
 };
