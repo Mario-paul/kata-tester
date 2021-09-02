@@ -1,6 +1,6 @@
 {
   "name": "kata-test",
-  "version": "0.3.6-alpha",
+  "version": "0.4.0-alpha",
   "description": "Unit test library for codewars-katas",
   "main": "kata-test.js",
   "scripts": {
