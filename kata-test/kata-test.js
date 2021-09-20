@@ -154,7 +154,7 @@ module.exports = class KataTest {
     let printExpectedOutput = this.checkForArray(expectedOutput);
 
     printInput = this.removeSingleQuotes(input);
-    printExpectedOutput = this.removeSingleQuotes(expectedOutput);
+    // printExpectedOutput = this.removeSingleQuotes(expectedOutput);
 
     const testPassed = "🗸 Test Passed";
     const testFailed = `✗ expected ${printInput} to deeply equal ${printExpectedOutput}`;
