@@ -26,7 +26,7 @@ if (moduleAvailable("colors")) {
 
 module.exports = class KataTest {
   // Deep comparison between two values to determine if they are equivalent.
-  deepEqual = (input, expectedOutput) => {
+  deepEqualLogic = (input, expectedOutput) => {
     if (input === expectedOutput) return true;
     if (input instanceof Date && expectedOutput instanceof Date)
       return input.getTime() === expectedOutput.getTime();
@@ -39,7 +39,7 @@ module.exports = class KataTest {
     if (input.prototype !== expectedOutput.prototype) return false;
     let keys = Object.keys(input);
     if (keys.length !== Object.keys(expectedOutput).length) return false;
-    return keys.every((k) => this.deepEqual(input[k], expectedOutput[k]));
+    return keys.every((k) => this.deepEqualLogic(input[k], expectedOutput[k]));
   };
 
   // If value is an array, return string formatted with brackets
@@ -56,19 +56,18 @@ module.exports = class KataTest {
   printTestResult(
     input,
     expectedOutput,
-    info,
+    message,
     testPassed,
     testFailed,
-    testFailedInfo
+    testFailedMessage
   ) {
     // console.log("colors loaded: ", colorsLoaded); //debug colors module
     const passedSpacer = "--------------";
     const failedSpacer = "---------------------------------------------";
 
-    // Comparing two identical arrays gives FALSE. Hence, deepEqual function
-    // console.log(this.deepEqual(input, expectedOutput)) // Debug deepEqual
-    if (this.deepEqual(input, expectedOutput)) {
-
+    // Comparing two identical arrays gives FALSE. Hence, deepEqualLogic function
+    // console.log(this.deepEqualLogic(input, expectedOutput)) // Debug deepEqualLogic
+    if (this.deepEqualLogic(input, expectedOutput)) {
       // return true
       if (colorsLoaded) {
         console.log(colors.green(testPassed));
@@ -79,14 +78,14 @@ module.exports = class KataTest {
     } else {
       // return false
       if (colorsLoaded) {
-        if (info) {
-          console.log(colors.red(testFailedInfo));
+        if (message) {
+          console.log(colors.red(testFailedMessage));
         } else {
           console.log(colors.red(testFailed));
         }
       } else {
-        if (info) {
-          console.log(testFailedInfo);
+        if (message) {
+          console.log(testFailedMessage);
         } else {
           console.log(testFailed);
         }
@@ -103,7 +102,7 @@ module.exports = class KataTest {
     }
   }
 
-  defaultTest(input, expectedOutput, info) {
+  defaultTest(input, expectedOutput, message) {
     let printInput = this.checkForArray(input);
     let printExpectedOutput = this.checkForArray(expectedOutput);
 
@@ -112,41 +111,41 @@ module.exports = class KataTest {
 
     const testPassed = "🗸 Test Passed";
     const testFailed = `✗ expected ${printInput} to equal ${printExpectedOutput}`;
-    const testFailedInfo = `✗ ${info}: expected ${printInput} to equal ${printExpectedOutput}`;
+    const testFailedMessage = `✗ ${message}: expected ${printInput} to equal ${printExpectedOutput}`;
 
     this.printTestResult(
       input,
       expectedOutput,
-      info,
+      message,
       testPassed,
       testFailed,
-      testFailedInfo
+      testFailedMessage
     );
   }
 
-  assertEquals(input, expectedOutput, info) {
-    this.defaultTest(input, expectedOutput, info);
+  assertEquals(input, expectedOutput, message) {
+    this.defaultTest(input, expectedOutput, message);
   }
 
-  equal(input, expectedOutput, info) {
-    this.defaultTest(input, expectedOutput, info);
+  equal(input, expectedOutput, message) {
+    this.defaultTest(input, expectedOutput, message);
   }
 
-  assertSimilar(input, expectedOutput, info) {
+  assertSimilar(input, expectedOutput, message) {
     let printInput = this.checkForArray(input);
     let printExpectedOutput = this.checkForArray(expectedOutput);
 
     const testPassed = `🗸 Test Passed: Value == ${printExpectedOutput}`;
     const testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
-    const testFailedInfo = `✗ ${info} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+    const testFailedMessage = `✗ ${message} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
 
     this.printTestResult(
       input,
       expectedOutput,
-      info,
+      message,
       testPassed,
       testFailed,
-      testFailedInfo
+      testFailedMessage
     );
   }
 };
