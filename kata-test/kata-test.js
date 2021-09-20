@@ -148,4 +148,25 @@ module.exports = class KataTest {
       testFailedMessage
     );
   }
+
+  deepEqual(input, expectedOutput, message) {
+    let printInput = this.checkForArray(input);
+    let printExpectedOutput = this.checkForArray(expectedOutput);
+
+    printInput = this.removeSingleQuotes(input);
+    printExpectedOutput = this.removeSingleQuotes(expectedOutput);
+
+    const testPassed = "🗸 Test Passed";
+    const testFailed = `✗ expected ${printInput} to deeply equal ${printExpectedOutput}`;
+    const testFailedMessage = `✗ ${message}: expected ${printInput} to deeply equal ${printExpectedOutput}`;
+
+    this.printTestResult(
+      input,
+      expectedOutput,
+      message,
+      testPassed,
+      testFailed,
+      testFailedMessage
+    );
+  }
 };
