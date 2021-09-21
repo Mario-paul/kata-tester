@@ -102,42 +102,20 @@ module.exports = class KataTest {
     }
   }
 
-  defaultTest(input, expectedOutput, message) {
-    let printInput = this.checkForArray(input);
-    let printExpectedOutput = this.checkForArray(expectedOutput);
-
-    printInput = this.removeSingleQuotes(input);
-    printExpectedOutput = this.removeSingleQuotes(expectedOutput);
-
-    const testPassed = "🗸 Test Passed";
-    const testFailed = `✗ expected ${printInput} to equal ${printExpectedOutput}`;
-    const testFailedMessage = `✗ ${message}: expected ${printInput} to equal ${printExpectedOutput}`;
-
-    this.printTestResult(
-      input,
-      expectedOutput,
-      message,
-      testPassed,
-      testFailed,
-      testFailedMessage
-    );
-  }
-
-  assertEquals(input, expectedOutput, message) {
-    this.defaultTest(input, expectedOutput, message);
-  }
-
-  equal(input, expectedOutput, message) {
-    this.defaultTest(input, expectedOutput, message);
-  }
-
-  customTest(input, expectedOutput, message, testType) {
+  testSuite(input, expectedOutput, message, testType) {
     let printInput = this.checkForArray(input);
     let printExpectedOutput = this.checkForArray(expectedOutput);
 
     let testPassed, testFailed, testFailedMessage;
 
-    if (testType === "assertSimilar") {
+    if (testType === "default") {
+      printInput = this.removeSingleQuotes(input);
+      printExpectedOutput = this.removeSingleQuotes(expectedOutput);
+
+      testPassed = "🗸 Test Passed";
+      testFailed = `✗ expected ${printInput} to equal ${printExpectedOutput}`;
+      testFailedMessage = `✗ ${message}: expected ${printInput} to equal ${printExpectedOutput}`;
+    } else if (testType === "assertSimilar") {
       testPassed = `🗸 Test Passed: Value == ${printExpectedOutput}`;
       testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
       testFailedMessage = `✗ ${message} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
@@ -160,13 +138,23 @@ module.exports = class KataTest {
     );
   }
 
+  assertEquals(input, expectedOutput, message) {
+    const test = "default";
+    this.testSuite(input, expectedOutput, message, test);
+  }
+
+  equal(input, expectedOutput, message) {
+    const test = "default";
+    this.testSuite(input, expectedOutput, message, test);
+  }
+
   assertSimilar(input, expectedOutput, message) {
     const test = "assertSimilar";
-    this.customTest(input, expectedOutput, message, test);
+    this.testSuite(input, expectedOutput, message, test);
   }
 
   deepEqual(input, expectedOutput, message) {
     const test = "deepEqual";
-    this.customTest(input, expectedOutput, message, test);
+    this.testSuite(input, expectedOutput, message, test);
   }
 };
