@@ -131,13 +131,24 @@ module.exports = class KataTest {
     this.defaultTest(input, expectedOutput, message);
   }
 
-  assertSimilar(input, expectedOutput, message) {
+  customTest(input, expectedOutput, message, testType) {
     let printInput = this.checkForArray(input);
     let printExpectedOutput = this.checkForArray(expectedOutput);
 
-    const testPassed = `🗸 Test Passed: Value == ${printExpectedOutput}`;
-    const testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
-    const testFailedMessage = `✗ ${message} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+    let testPassed, testFailed, testFailedMessage;
+
+    if (testType === "assertSimilar") {
+      testPassed = `🗸 Test Passed: Value == ${printExpectedOutput}`;
+      testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+      testFailedMessage = `✗ ${message} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+    } else if (testType === "deepEqual") {
+      printInput = this.removeSingleQuotes(input);
+      // printExpectedOutput = this.removeSingleQuotes(expectedOutput);
+
+      testPassed = "🗸 Test Passed";
+      testFailed = `✗ expected ${printInput} to deeply equal ${printExpectedOutput}`;
+      testFailedMessage = `✗ ${message}: expected ${printInput} to deeply equal ${printExpectedOutput}`;
+    }
 
     this.printTestResult(
       input,
@@ -149,24 +160,13 @@ module.exports = class KataTest {
     );
   }
 
+  assertSimilar(input, expectedOutput, message) {
+    const test = "assertSimilar";
+    this.customTest(input, expectedOutput, message, test);
+  }
+
   deepEqual(input, expectedOutput, message) {
-    let printInput = this.checkForArray(input);
-    let printExpectedOutput = this.checkForArray(expectedOutput);
-
-    printInput = this.removeSingleQuotes(input);
-    // printExpectedOutput = this.removeSingleQuotes(expectedOutput);
-
-    const testPassed = "🗸 Test Passed";
-    const testFailed = `✗ expected ${printInput} to deeply equal ${printExpectedOutput}`;
-    const testFailedMessage = `✗ ${message}: expected ${printInput} to deeply equal ${printExpectedOutput}`;
-
-    this.printTestResult(
-      input,
-      expectedOutput,
-      message,
-      testPassed,
-      testFailed,
-      testFailedMessage
-    );
+    const test = "deepEqual";
+    this.customTest(input, expectedOutput, message, test);
   }
 };
